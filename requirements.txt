@@ -10,3 +10,8 @@ pytest>=7.0.0
 
 # Checkpoint readers for the supported .safetensors and GGUF paths are
 # implemented in engine/loaders/, so no extra checkpoint package is required.
+
+# Optional -- only needed to regenerate assets/demo/ultra-llm-engine-demo.mp4
+# pillow>=10.0.0
+# imageio>=2.34.0
+# imageio-ffmpeg>=0.4.9

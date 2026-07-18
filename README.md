@@ -96,6 +96,54 @@ make cuda
 The CUDA target is optional. If CUDA/CuPy is unavailable, the engine continues
 to run through the NumPy fallback implementation.
 
+## Demo Video
+
+[![Ultra LLM Engine demo video poster](assets/demo/ultra-llm-engine-demo-poster.png)](assets/demo/ultra-llm-engine-demo.mp4)
+
+Watch the 2-minute 5-second project walkthrough:
+[assets/demo/ultra-llm-engine-demo.mp4](assets/demo/ultra-llm-engine-demo.mp4)
+
+Regenerate the video:
+
+```bash
+python -m pip install pillow imageio imageio-ffmpeg
+python tools/create_demo_video.py --output assets/demo/ultra-llm-engine-demo.mp4
+```
+
+## Benchmarks
+
+Latest local CPU smoke benchmark, run on July 18, 2026 with Python 3.10.9,
+NumPy 2.2.6, and the NumPy CPU fallback backend on an Intel Core Ultra 9 275HX.
+The benchmark uses a random 3-layer decoder (`hidden_dim=96`, `n_heads=6`,
+INT4 weights) and 48 generated tokens per prompt.
+
+| Benchmark | Mode | Cache | Batch | Tokens | Avg seconds | Tok/s | Accept rate | Notes |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Greedy single decode | greedy | plain | 1 | 48 | 0.281 | 170.9 | - | single prompt |
+| Greedy single decode | greedy | paged | 1 | 48 | 0.287 | 167.1 | - | single prompt |
+| Prompt lookup speculation | lookup | paged | 1 | 48 | 0.199 | 241.0 | 94.7% | single prompt |
+| N-gram speculation | ngram | paged | 1 | 48 | 0.188 | 255.4 | 0.0% | single prompt |
+| Neural draft speculation | model | paged | 1 | 48 | 0.517 | 92.9 | 0.5% | single prompt |
+| Greedy batched decode | greedy | plain | 4 | 192 | 0.377 | 509.5 | - | aggregate throughput |
+
+Full benchmark artifacts:
+
+- Markdown: [benchmarks/results.md](benchmarks/results.md)
+- JSON: [benchmarks/results.json](benchmarks/results.json)
+
+Regenerate the table:
+
+```bash
+python benchmarks/run_benchmarks.py \
+    --repeats 3 \
+    --max-tokens 48 \
+    --output benchmarks/results.md \
+    --json benchmarks/results.json
+```
+
+These measurements are intended for regression tracking inside this reference
+engine. They are not production-serving throughput claims.
+
 ## Project Layout
 
 ```text
@@ -386,4 +434,3 @@ transformer, gguf, safetensors
 ## License
 
 MIT License. See `LICENSE` for details.
-

@@ -1,0 +1,78 @@
+{
+  "environment": {
+    "date": "2026-07-18",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.9",
+    "processor": "Intel(R) Core(TM) Ultra 9 275HX",
+    "numpy": "2.2.6",
+    "backend": "NumPy CPU fallback"
+  },
+  "results": [
+    {
+      "name": "Greedy single decode",
+      "mode": "greedy",
+      "cache": "plain",
+      "batch_size": 1,
+      "generated_tokens": 48,
+      "avg_seconds": 0.2808017333445605,
+      "tokens_per_second": 170.93911575360946,
+      "acceptance_rate": null,
+      "notes": "single prompt"
+    },
+    {
+      "name": "Greedy single decode",
+      "mode": "greedy",
+      "cache": "paged",
+      "batch_size": 1,
+      "generated_tokens": 48,
+      "avg_seconds": 0.2872531666750244,
+      "tokens_per_second": 167.09998554795192,
+      "acceptance_rate": null,
+      "notes": "single prompt"
+    },
+    {
+      "name": "Prompt lookup speculation",
+      "mode": "lookup",
+      "cache": "paged",
+      "batch_size": 1,
+      "generated_tokens": 48,
+      "avg_seconds": 0.19913569998849803,
+      "tokens_per_second": 241.04166155426904,
+      "acceptance_rate": 0.9473684210526315,
+      "notes": "single prompt"
+    },
+    {
+      "name": "N-gram speculation",
+      "mode": "ngram",
+      "cache": "paged",
+      "batch_size": 1,
+      "generated_tokens": 48,
+      "avg_seconds": 0.18791873333005546,
+      "tokens_per_second": 255.42956335116455,
+      "acceptance_rate": 0.0,
+      "notes": "single prompt"
+    },
+    {
+      "name": "Neural draft speculation",
+      "mode": "model",
+      "cache": "paged",
+      "batch_size": 1,
+      "generated_tokens": 48,
+      "avg_seconds": 0.516648566670483,
+      "tokens_per_second": 92.90648052956715,
+      "acceptance_rate": 0.005434782608695652,
+      "notes": "single prompt"
+    },
+    {
+      "name": "Greedy batched decode",
+      "mode": "greedy",
+      "cache": "plain",
+      "batch_size": 4,
+      "generated_tokens": 192,
+      "avg_seconds": 0.3768698333199912,
+      "tokens_per_second": 509.45972063775497,
+      "acceptance_rate": null,
+      "notes": "aggregate throughput"
+    }
+  ]
+}
